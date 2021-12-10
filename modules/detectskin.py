@@ -33,14 +33,11 @@ class DetectSkin:
 
             cv2.imshow('images', np.hstack([frame, skin]))
 
-            cv2.imwrite("./test.png", skin)
+            cv2.imwrite("./images/test.png", skin)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
         camera.release()
         cv2.destroyAllWindows()
-
-d = DetectSkin()
-d.run()
 
 

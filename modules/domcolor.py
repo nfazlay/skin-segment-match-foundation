@@ -1,18 +1,19 @@
 import cv2
+import numpy as np
 from sklearn.cluster import KMeans
 
 class DominantColors:
 
     CLUSTERS = None
-    IMAGE = None
+    IMAGE = "./images/test.png"
     COLORS = None
-    LABELS = None
+    COLOR = None
+
     
-    def __init__(self, image, clusters=3):
+    def __init__(self, clusters=2):
         self.CLUSTERS = clusters
-        self.IMAGE = image
         
-    def dominantColors(self):
+    def run(self):
     
         #read image
         img = cv2.imread(self.IMAGE)
@@ -30,17 +31,13 @@ class DominantColors:
         kmeans = KMeans(n_clusters = self.CLUSTERS)
         kmeans.fit(img)
         
-        #the cluster centers are our dominant colors.
+        #the cluster centers are the dominant colors.
         self.COLORS = kmeans.cluster_centers_
         
-        #save labels
-        self.LABELS = kmeans.labels_
-        
         #returning after converting to integer from float
-        return self.COLORS.astype(int)
+        self.COLORS = self.COLORS.astype(int)
 
-img = 'test.png'
-clusters = 2
-dc = DominantColors(img, clusters) 
-colors = dc.dominantColors()
-print(colors)
+        self.COLOR = np.add(self.COLORS[0], self.COLORS[1])
+        print(self.COLOR)
+
+        return self.COLOR
