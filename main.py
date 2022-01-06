@@ -6,8 +6,8 @@ from modules.domcolor import DominantColors
 from modules.predictcolor import PredictColor
 
 def main():
-    # d = DetectSkin()
-    # d.run()
+    d = DetectSkin()
+    d.run()
 
     c = DominantColors()
     color = c.run()
@@ -16,7 +16,7 @@ def main():
 
     foundation = p.run()
     print(foundation)
-    #webbrowser.open(foundation[2])
+    webbrowser.open(foundation[2])
 
 if __name__ == "__main__":
     main()
