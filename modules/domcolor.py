@@ -1,6 +1,9 @@
 import cv2
 import numpy as np
 from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+import tkinter
+from mpl_toolkits.mplot3d import Axes3D
 
 class DominantColors:
 
@@ -8,6 +11,7 @@ class DominantColors:
     IMAGE = "./images/test.png"
     COLORS = None
     COLOR = None
+    LABELS = None
 
     
     def __init__(self, clusters=2):
@@ -30,14 +34,20 @@ class DominantColors:
         #using k-means to cluster pixels
         kmeans = KMeans(n_clusters = self.CLUSTERS)
         kmeans.fit(img)
+
         
         #the cluster centers are the dominant colors.
         self.COLORS = kmeans.cluster_centers_
+
+        #save labels
+        self.LABELS = kmeans.labels_
+
         
         #returning after converting to integer from float
         self.COLORS = self.COLORS.astype(int)
 
+        print(self.COLORS)
+
         self.COLOR = np.add(self.COLORS[0], self.COLORS[1])
-        print(self.COLOR)
 
         return self.COLOR

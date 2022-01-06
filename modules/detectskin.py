@@ -23,17 +23,22 @@ class DetectSkin:
             ret, frame = camera.read()
 
             frame = im.resize(frame, width= 400)
+            cv2.imwrite("./images/rgb.png", frame)
+
             #convert_to_HSV = cv2.cvtColor(frame, cv2.COLOR_BGR2YCR_CB)
             convert_to_HSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            cv2.imwrite("./images/hsv.png", convert_to_HSV)
             dmask = cv2.inRange(convert_to_HSV, self.min_HSV, self.max_HSV)
             
             dmask = cv2.GaussianBlur(dmask, (3,3), 0)
+            cv2.imwrite("./images/yao.png", dmask)
 
             skin = cv2.bitwise_and(frame, frame, mask= dmask)
 
             cv2.imshow('images', np.hstack([frame, skin]))
 
             cv2.imwrite("./images/test.png", skin)
+
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
